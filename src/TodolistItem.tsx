@@ -14,16 +14,15 @@ export type TaskType = {
 
 // Начинаем отрисовывать todoList
 export const TodolistItem = (props: Props) => {
-
 //   Или можно взять из объекта толко нужное
-// export const TodolistItem = (props: Props) => {
+// export const TodolistItem = ({title, tasks}: Props) => {
 
   const {title: title, tasks: tasks} = props;
   // Можно в сокращенном виде
   // const {title, tasks} = props;
 
 
-//Заходим  и проверяем есть ли в этом todoList'е таски
+//Заходим и проверяем есть ли в этом todoList'е таски
   const taskList = tasks.length === 0
     //Если тасок нет, то вместо лишек будет спан с надписью
     ?<span>Your tasks list is empty</span>
@@ -34,7 +33,7 @@ export const TodolistItem = (props: Props) => {
         tasks.map((task: TaskType) => {
           return(
             //Заполняем лишками, сколько их в tasks
-           <Task title = {task.title} isDone={task.isDone}/>
+           <Task key = {task.id} title = {task.title} isDone={task.isDone}/>
           )
         })
       }
