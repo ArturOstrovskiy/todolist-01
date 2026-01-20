@@ -9,7 +9,6 @@ export type FilterValuesType = "all" | "active" | "completed"
 //UI
 
 function App() {
-  console.log(v1())
   // Data
   const todoListTitle = "What to learn"
 
@@ -19,6 +18,7 @@ function App() {
     {id: v1(), title: "JS and TS", isDone: true},
     {id: v1(), title: "REACT", isDone: false},
   ])
+
 
 //CRUD
   const deleteTask = (taskId: TaskType["id"]) => {
@@ -41,13 +41,20 @@ function App() {
 
   }
 
+  const changeTaskStatus =
+    (taskId: TaskType["id"], isDone: TaskType["isDone"]) => {
+    // Создаем новую структуру данных
+    const nextState : TaskType[] = tasks.map(task => task.id === taskId ? {...task, isDone: isDone}   :task)
+      // Передаем ее в реакт для обновления UI
+      setTasks(nextState)
+  }
   //UI
   const [filter, setFilter] = useState<FilterValuesType>("all")
   const changeToDoListFilter = (filter: FilterValuesType) => {
     setFilter(filter)
   }
 
-  const tasksForRender = getTasksForRender (tasks, filter)
+  const tasksForRender = getTasksForRender(tasks, filter)
 
 
   return (
@@ -56,8 +63,10 @@ function App() {
         title={todoListTitle}
         tasks={tasksForRender}
         deleteTask={deleteTask}
-        changeToDoListFilter={changeToDoListFilter}
         createTask={createTask}
+        changeTaskStatus={changeTaskStatus}
+        changeToDoListFilter={changeToDoListFilter}
+        filter={filter}
       />
     </div>
   )
