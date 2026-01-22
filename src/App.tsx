@@ -46,6 +46,8 @@ function App() {
     // Создаем новую структуру данных
     const nextState : TaskType[] = tasks.map(task => task.id === taskId ? {...task, isDone: isDone}   :task)
       // Передаем ее в реакт для обновления UI
+
+
       setTasks(nextState)
   }
   //UI
